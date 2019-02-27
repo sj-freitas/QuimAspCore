@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>sj-freitas</Authors>
+    <Company>Quim</Company>
+    <Description>A set of utilitary classes and elements for Asp .Net Core applications.</Description>
+    <Copyright>sj-freitas</Copyright>
+    <PackageLicenseUrl>https://github.com/sj-freitas/QuimAspCore/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/sj-freitas/QuimAspCore/</PackageProjectUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

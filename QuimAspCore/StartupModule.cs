@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lib.AspNetCore
+namespace QuimAspCore
 {
     public static class StartupModule
     {

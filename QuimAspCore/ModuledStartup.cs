@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 
-namespace Lib.AspNetCore
+namespace QuimAspCore
 {
     public abstract class ModuledStartup
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System.Linq;
 using System.Reflection;
 
-namespace Lib.AspNetCore
+namespace QuimAspCore
 {
     public class PrefixedRoute : IApplicationModelConvention
     {

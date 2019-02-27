@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Lib.AspNetCore
+namespace QuimAspCore
 {
     public interface IStartupModule
     {

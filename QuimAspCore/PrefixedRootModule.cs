@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace Lib.AspNetCore
+namespace QuimAspCore
 {
     public class PrefixedRootModule : IStartupModule
     {
