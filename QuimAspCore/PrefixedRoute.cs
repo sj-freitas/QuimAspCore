@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.AspNetCore.Mvc.Routing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -21,15 +23,34 @@ namespace QuimAspCore
             var matchedSelectors = application
                 .Controllers
                 .Where(t => t.ControllerType.Assembly == _moduleAssembly)
-                .SelectMany(t => t.Selectors)
-                .Where(t => t.AttributeRouteModel != null);
+                .Select(controller => new
+                {
+                    ControllerSelectors = controller.Selectors,
+                    ActionSelectors = controller
+                        .Actions
+                        .SelectMany(action => action.Selectors)
+                });
             
             foreach (var selectorModel in matchedSelectors)
             {
-                var mergedAttributes = $"{_prefix}{selectorModel.AttributeRouteModel.Template}";
-                var attribute = new RouteAttribute(mergedAttributes);
+                var root = _prefix;
+                foreach (var curr in selectorModel
+                    .ControllerSelectors
+                    .Select(t => t.AttributeRouteModel)
+                    .Where(t => t != null))
+                {
+                    root = UriHelper.Combine(_prefix, curr.Template);
+                    curr.Template = root;
+                }
 
-                selectorModel.AttributeRouteModel = new AttributeRouteModel(attribute);
+                foreach (var curr in selectorModel
+                    .ActionSelectors
+                    .Select(t => t.AttributeRouteModel)
+                    .Where(t => t != null))
+                {
+                    var template = UriHelper.Combine(root, curr.Template);
+                    curr.Template = template;
+                }
             }
         }
     }
