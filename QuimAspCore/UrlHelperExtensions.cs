@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using QuimAspCore.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc;
+using QuimAspCore.Helpers;
 
 namespace QuimAspCore
 {
@@ -14,7 +14,7 @@ namespace QuimAspCore
         public string Controller => typeof(TController)
             .Name
             .RemoveEnding(
-                "Controller", 
+                "Controller",
                 StringComparison.InvariantCultureIgnoreCase);
 
         public IUrlHelper Url { get; }

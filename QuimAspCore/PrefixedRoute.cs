@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.AspNetCore.Mvc.Routing;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace QuimAspCore
 {
@@ -30,7 +27,7 @@ namespace QuimAspCore
                         .Actions
                         .SelectMany(action => action.Selectors)
                 });
-            
+
             foreach (var selectorModel in matchedSelectors)
             {
                 var root = _prefix;

@@ -1,21 +1,24 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
 
 namespace QuimAspCore
 {
     public abstract class ModuledStartup
     {
+        private readonly IHostingEnvironment _env;
         private readonly IEnumerable<IStartupModule> _modules;
 
-        protected ModuledStartup(params IStartupModule[] modules)
-            : this((IEnumerable<IStartupModule>)modules)
+        protected ModuledStartup(IHostingEnvironment env, params IStartupModule[] modules)
+            : this(env, (IEnumerable<IStartupModule>)modules)
         {
         }
 
-        protected ModuledStartup(IEnumerable<IStartupModule> modules)
+        protected ModuledStartup(IHostingEnvironment env, IEnumerable<IStartupModule> modules)
         {
+            _env = env;
             _modules = modules;
         }
 
@@ -23,9 +26,22 @@ namespace QuimAspCore
         // Use this method to add services to the container.
         public virtual void ConfigureServices(IServiceCollection services)
         {
+            services
+                .AddMvcCore(options =>
+                {
+                    options.ReturnHttpNotAcceptable = true;
+
+                    foreach (var curr in _modules)
+                    {
+                        curr.ConfigureMvcOptions(_env, options);
+                    }
+                })
+                .AddJsonFormatters()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
             foreach (var curr in _modules)
             {
-                curr.ConfigureServices(services);
+                curr.ConfigureServices(_env, services);
             }
         }
 
