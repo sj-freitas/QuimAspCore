@@ -23,6 +23,8 @@ namespace QuimAspCore
             {
                 throw new ArgumentNullException(nameof(app));
             }
+
+            _wrapped.Configure(app, env);
         }
 
         public void ConfigureMvcOptions(IHostingEnvironment env, MvcOptions options)
